@@ -1,6 +1,7 @@
 import scrapy
 from scrapy_splash import SplashRequest
 from ..items import JavascriptSpiderItem
+from scrapy.loader import ItemLoader
 
 class JSQuotesSpider(scrapy.Spider):
     name = 'js_quotes'
@@ -12,14 +13,13 @@ class JSQuotesSpider(scrapy.Spider):
 
 
     def parse(self, response):
-        item = JavascriptSpiderItem()
-
         for quotes in response.css('.quote'):
-            item['quote'] = quotes.css('.text::text').get()
-            item['author'] = quotes.css('.author::text').get()
-            item['tags'] = quotes.css('.tag::text').getall()
+            loader = ItemLoader(item=JavascriptSpiderItem(), selector=quotes)
+            loader.add_css('quote', '.text::text')
+            loader.add_css('author', '.author::text')
+            loader.add_css('tags', '.tag::text')
 
-            yield item
+            yield loader.load_item()
 
         next_page = response.css('.next a::attr(href)').get()
         if next_page is not None:
