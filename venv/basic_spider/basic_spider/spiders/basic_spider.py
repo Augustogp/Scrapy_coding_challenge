@@ -19,7 +19,7 @@ class BookSpider(scrapy.Spider):
 
         for book in response.css('.col-lg-3'):
             loader = ItemLoader(item=BasicSpiderItem(), selector=book)
-            loader.add_css('book_title', '.product_pod a::text')
+            loader.add_css('book_title', '.product_pod a::attr(title)')
             loader.add_css('book_price', '.price_color::text')
             loader.add_css('book_img_url', '.thumbnail::attr(src)', MapCompose(response.urljoin))
             loader.add_value('book_details_url', response.urljoin(book.css('.product_pod a::attr(href)').get()))

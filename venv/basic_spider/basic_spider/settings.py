@@ -64,7 +64,7 @@ CONCURRENT_REQUESTS = 64
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     #'basic_spider.pipelines.BasicSpiderPipeline': 300,
-    'basic_spider.pipelines.JsonWriterPipeline' : 500
+    'basic_spider.pipelines.DuplicatesPipeline' : 200
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
