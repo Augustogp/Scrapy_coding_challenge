@@ -8,12 +8,13 @@
 from itemadapter import ItemAdapter
 from scrapy.exceptions import DropItem
 
-class BasicSpiderPipeline:
-    def process_item(self, item, spider):
-        return item
+#class BasicSpiderPipeline:
+#    def process_item(self, item, spider):
+#        return item
 
 
 class DuplicatesPipeline:
+    #In the event that the same book is found in two categories
     def __init__(self):
         self.ids_seen = set()
 
